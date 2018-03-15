@@ -1,5 +1,6 @@
 package ro.pub.cs.systems.eim.lab04.contactsmanager;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.provider.ContactsContract;
@@ -61,9 +62,9 @@ public class ContactsManagerActivity extends AppCompatActivity {
                     contactData.add(imRow);
                 }
                 intent.putParcelableArrayListExtra(ContactsContract.Intents.Insert.DATA, contactData);
-                startActivity(intent);
+                startActivityForResult(intent, 666);
             } else if(view.getId() == R.id.cancel_button) {
-                finish();
+                setResult(Activity.RESULT_CANCELED, new Intent());
             } else {
                 switch (additionalFieldsContainer.getVisibility()) {
                     case View.VISIBLE:
@@ -107,5 +108,24 @@ public class ContactsManagerActivity extends AppCompatActivity {
 
         additionalFieldsContainer = (LinearLayout)findViewById(R.id.linearLayoutAdditionalFields);
 
+        Intent intent = getIntent();
+        if (intent != null) {
+            String phoneNr = intent.getStringExtra("ro.pub.cs.systems.eim.lab04.contactsmanager.PHONE_NUMBER_KEY");
+            if (phoneNr != null) {
+                phone.setText(phoneNr);
+            } else {
+                Toast.makeText(this, "ERROR", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        switch(requestCode) {
+            case 666:
+                setResult(resultCode, new Intent());
+                finish();
+                break;
+        }
     }
 }
