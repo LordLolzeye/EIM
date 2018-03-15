@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class PhoneDialerActivity extends AppCompatActivity {
 
@@ -19,6 +20,8 @@ public class PhoneDialerActivity extends AppCompatActivity {
     private ImageButton callImageButton;
     private ImageButton hangupImageButton;
     private ImageButton backspaceImageButton;
+
+    private Button add_to_contact;
 
     public static int all_buttons[] = {
             R.id.button,
@@ -39,6 +42,7 @@ public class PhoneDialerActivity extends AppCompatActivity {
     private BackspaceListener backspaceListener = new BackspaceListener();
     private CallListener callListener = new CallListener();
     private HangupListener hangupListener = new HangupListener();
+    private AddToContactListener addToContactListener = new AddToContactListener();
 
     private class KeyBoardListener implements View.OnClickListener {
         @Override
@@ -82,6 +86,19 @@ public class PhoneDialerActivity extends AppCompatActivity {
         }
     }
 
+    private class AddToContactListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            String phoneNumber = editText.getText().toString();
+            if (phoneNumber.length() > 0) {
+                Intent intent = new Intent("ro.pub.cs.systems.eim.lab04.contactsmanager.intent.action.ContactsManagerActivity");
+                intent.putExtra("ro.pub.cs.systems.eim.lab04.contactsmanager.PHONE_NUMBER_KEY", phoneNumber);
+                startActivityForResult(intent, 666);
+            } else {
+                Toast.makeText(getApplication(), "ERROR!", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +120,9 @@ public class PhoneDialerActivity extends AppCompatActivity {
 
         hangupImageButton = (ImageButton) findViewById(R.id.imageButton3);
         hangupImageButton.setOnClickListener(hangupListener);
+
+        add_to_contact = (Button) findViewById(R.id.add_to_contact);
+        add_to_contact.setOnClickListener(addToContactListener);
     }
 
 
