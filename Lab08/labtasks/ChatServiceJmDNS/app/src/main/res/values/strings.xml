@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Chat Service JmDNS</string>
+    <string name="service_port">Service Port</string>
+    <string name="register_service">Register Service</string>
+    <string name="unregister_service">Unregister Service</string>
+    <string name="start_service_discovery">Start Service Discovery</string>
+    <string name="stop_service_discovery">Stop Service Discovery</string>
+    <string name="connect">Connect</string>
+    <string name="view">View</string>
+    <string name="message">Message</string>
+    <string name="send_message">Send Message</string>
+    <string name="chat_communication">Chat Communication</string>
+    <string name="discovered_services">Discovered Services</string>
+    <string name="conversations">Conversations</string>
+</resources>
